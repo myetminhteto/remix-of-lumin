@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, Check } from "lucide-react";
@@ -7,6 +7,16 @@ import peacefulLandscape from "@/assets/peaceful-landscape.webp";
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -19,8 +29,7 @@ export function Hero() {
   
   // Dashboard stays visible much longer - graceful exit
   const dashboardOpacity = useTransform(scrollYProgress, [0, 0.6, 0.85], [1, 1, 0]);
-  const isMobile = window.matchMedia("(max-width: 640px)").matches;
-  const dashboardY = useTransform(scrollYProgress, [0,1], [0, isMobile ? 30 : 60]);
+  const dashboardY = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 30 : 60]);
   const dashboardScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 0.96]);
 
   return (
@@ -42,7 +51,6 @@ export function Hero() {
           className="w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/0 to-background/0" />
-
       </motion.div>
     
       {/* Content */}
@@ -118,12 +126,12 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Dashboard */}
+        {/* Dashboard - Responsive width */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-12 sm:mt-16 lg:mt-24"
+          className="mt-12 sm:mt-16 lg:mt-24 px-4 sm:px-6 lg:px-8"
           style={{ 
             opacity: dashboardOpacity,
             y: dashboardY,
@@ -131,15 +139,15 @@ export function Hero() {
           }}
         >
           <div className="flex justify-center">
-            <div className="relative w-[70%]">
-              <div className="rounded-xl overflow-hidden bg-black/40 backdrop-blur-md shadow-lg border-t-4 border-l-4 border-r-4 border-black">
+            {/* Responsive width: 95% on mobile, 85% on tablet, 70% on desktop */}
+            <div className="relative w-[95%] sm:w-[85%] lg:w-[70%] max-w-6xl">
+              <div className="rounded-lg sm:rounded-xl overflow-hidden bg-black/40 backdrop-blur-md shadow-lg border-t-2 sm:border-t-4 border-l-2 sm:border-l-4 border-r-2 sm:border-r-4 border-black">
                 <img 
                   src={dashboardPreview} 
                   className="w-full h-auto block" 
                   alt="Dashboard Preview"
                 />
               </div>
-        
             </div>
           </div>
         </motion.div>
