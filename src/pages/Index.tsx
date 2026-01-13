@@ -7,6 +7,7 @@ import { SettingsOperations } from "@/components/landing/SettingsOperations";
 import { Testimonials } from "@/components/landing/Testimonials";
 import { Spaces } from "@/components/landing/Spaces";
 import { FAQ } from "@/components/landing/FAQ";
+import { Contact } from "@/components/landing/Contact";
 import { FinalCTA } from "@/components/landing/FinalCTA";
 import { Footer } from "@/components/landing/Footer";
 
@@ -23,6 +24,7 @@ const Index = () => {
         <LogoMarquee />
         <Spaces />
         <FAQ />
+        <Contact />
         <FinalCTA />
       </main>
       <Footer />
