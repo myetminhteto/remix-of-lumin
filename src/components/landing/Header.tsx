@@ -6,11 +6,16 @@ import { Button } from "@/components/ui/button";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 
 const navigation = [
+  
+  
+  { name: "About", href: "/pricing" },
   { name: "Features", href: "/#features" },
-  { name: "Solutions", href: "/#solutions" },
-  { name: "Pricing", href: "/pricing" },
-  { name: "Resources", href: "/#resources" },
+  { name: "Testimonials", href: "/#features" },
+  { name: "FQA", href: "/#resources" },
+  { name: "ASEAN Labour Resources", href: "/#resources" },
+  { name: "Team", href: "/#resources"},
   { name: "Contact", href: "/#contact" },
+  
 ];
 
 export function Header() {
@@ -128,7 +133,7 @@ export function Header() {
               href="#"
               className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-300"
             >
-              Sign In
+              Sign in
             </a>
             <Link to="/pricing">
               <Button 

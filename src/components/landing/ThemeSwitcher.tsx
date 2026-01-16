@@ -18,32 +18,62 @@ const themes = [
   { id: "slate", name: "Executive Slate", primary: "220 15% 30%", accent: "20 65% 50%" },
 ];
 
+const tabs = [
+  { id: "font", icon: Type, label: "Typography" },
+  { id: "theme", icon: Palette, label: "Colors" },
+];
+
 export function ThemeSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"font" | "theme">("font");
   const [currentFont, setCurrentFont] = useState("roboto");
   const [currentTheme, setCurrentTheme] = useState("blue");
 
-  // Apply font changes
+  // Apply selected font
   useEffect(() => {
     const font = fonts.find(f => f.id === currentFont);
-    if (font) {
-      document.documentElement.style.setProperty("--font-body", font.family);
-      document.body.style.fontFamily = font.family;
-      document.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(el => {
-        (el as HTMLElement).style.fontFamily = font.family;
-      });
-    }
+    if (!font) return;
+
+    document.documentElement.style.setProperty("--font-body", font.family);
+    document.body.style.fontFamily = font.family;
+    document.querySelectorAll("h1,h2,h3,h4,h5,h6").forEach(el => {
+      (el as HTMLElement).style.fontFamily = font.family;
+    });
   }, [currentFont]);
 
-  // Apply theme changes
+  // Apply selected theme
   useEffect(() => {
     const theme = themes.find(t => t.id === currentTheme);
-    if (theme) {
-      document.documentElement.style.setProperty("--primary", theme.primary);
-      document.documentElement.style.setProperty("--accent", theme.accent);
-    }
+    if (!theme) return;
+
+    document.documentElement.style.setProperty("--primary", theme.primary);
+    document.documentElement.style.setProperty("--accent", theme.accent);
   }, [currentTheme]);
+
+  // Reusable selection button
+  const SelectionButton = ({
+    selected,
+    onClick,
+    children,
+  }: {
+    selected: boolean;
+    onClick: () => void;
+    children: React.ReactNode;
+  }) => (
+    <button
+      onClick={onClick}
+      className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-300 ${
+        selected ? "bg-primary/10 border border-primary/20" : "hover:bg-muted/50 border border-transparent"
+      }`}
+    >
+      {children}
+      {selected && (
+        <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+          <Check className="w-3.5 h-3.5 text-primary-foreground" />
+        </div>
+      )}
+    </button>
+  );
 
   return (
     <div className="relative">
@@ -53,9 +83,7 @@ export function ThemeSwitcher() {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-          isOpen 
-            ? "bg-primary/10 text-primary border border-primary/20" 
-            : "text-foreground/70 hover:text-foreground hover:bg-foreground/5 border border-transparent"
+          isOpen ? "bg-primary/10 text-primary border border-primary/20" : "text-foreground/70 hover:text-foreground hover:bg-foreground/5 border border-transparent"
         }`}
       >
         <Palette className="w-4 h-4" />
@@ -63,7 +91,6 @@ export function ThemeSwitcher() {
         <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
       </motion.button>
 
-      {/* Dropdown Panel */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -97,27 +124,17 @@ export function ThemeSwitcher() {
 
               {/* Tabs */}
               <div className="flex border-b border-border">
-                {[
-                  { id: "font", icon: Type, label: "Typography" },
-                  { id: "theme", icon: Palette, label: "Colors" },
-                ].map((tab) => (
+                {tabs.map(tab => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id as "font" | "theme")}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium transition-all duration-300 relative ${
-                      activeTab === tab.id 
-                        ? "text-primary" 
-                        : "text-muted-foreground hover:text-foreground"
+                    className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium relative transition-all duration-300 ${
+                      activeTab === tab.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     <tab.icon className="w-4 h-4" />
                     {tab.label}
-                    {activeTab === tab.id && (
-                      <motion.div
-                        layoutId="activeTab"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
-                      />
-                    )}
+                    {activeTab === tab.id && <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />}
                   </button>
                 ))}
               </div>
@@ -126,88 +143,37 @@ export function ThemeSwitcher() {
               <div className="p-4 max-h-[400px] overflow-y-auto">
                 <AnimatePresence mode="wait">
                   {activeTab === "font" ? (
-                    <motion.div
-                      key="font"
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 10 }}
-                      className="space-y-2"
-                    >
-                      {fonts.map((font) => (
-                        <button
-                          key={font.id}
-                          onClick={() => setCurrentFont(font.id)}
-                          className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-300 ${
-                            currentFont === font.id
-                              ? "bg-primary/10 border border-primary/20"
-                              : "hover:bg-muted/50 border border-transparent"
-                          }`}
-                        >
+                    <motion.div key="font" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} className="space-y-2">
+                      {fonts.map(f => (
+                        <SelectionButton key={f.id} selected={currentFont === f.id} onClick={() => setCurrentFont(f.id)}>
                           <div className="text-left">
-                            <p 
-                              className="font-semibold text-foreground"
-                              style={{ fontFamily: font.family }}
-                            >
-                              {font.name}
-                            </p>
-                            <p className="text-xs text-muted-foreground mt-0.5">{font.vibe}</p>
+                            <p className="font-semibold text-foreground" style={{ fontFamily: f.family }}>{f.name}</p>
+                            <p className="text-xs text-muted-foreground mt-0.5">{f.vibe}</p>
                           </div>
-                          {currentFont === font.id && (
-                            <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
-                              <Check className="w-3.5 h-3.5 text-primary-foreground" />
-                            </div>
-                          )}
-                        </button>
+                        </SelectionButton>
                       ))}
                     </motion.div>
                   ) : (
-                    <motion.div
-                      key="theme"
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -10 }}
-                      className="space-y-2"
-                    >
-                      {themes.map((theme) => (
-                        <button
-                          key={theme.id}
-                          onClick={() => setCurrentTheme(theme.id)}
-                          className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-300 ${
-                            currentTheme === theme.id
-                              ? "bg-primary/10 border border-primary/20"
-                              : "hover:bg-muted/50 border border-transparent"
-                          }`}
-                        >
+                    <motion.div key="theme" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} className="space-y-2">
+                      {themes.map(t => (
+                        <SelectionButton key={t.id} selected={currentTheme === t.id} onClick={() => setCurrentTheme(t.id)}>
                           <div className="flex items-center gap-3">
                             <div className="flex gap-1">
-                              <div 
-                                className="w-5 h-5 rounded-full shadow-sm border border-white/20"
-                                style={{ backgroundColor: `hsl(${theme.primary})` }}
-                              />
-                              <div 
-                                className="w-5 h-5 rounded-full shadow-sm border border-white/20 -ml-1.5"
-                                style={{ backgroundColor: `hsl(${theme.accent})` }}
-                              />
+                              <div className="w-5 h-5 rounded-full shadow-sm border border-white/20" style={{ backgroundColor: `hsl(${t.primary})` }} />
+                              <div className="w-5 h-5 rounded-full shadow-sm border border-white/20 -ml-1.5" style={{ backgroundColor: `hsl(${t.accent})` }} />
                             </div>
-                            <p className="font-medium text-foreground text-sm">{theme.name}</p>
+                            <p className="font-medium text-foreground text-sm">{t.name}</p>
                           </div>
-                          {currentTheme === theme.id && (
-                            <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
-                              <Check className="w-3.5 h-3.5 text-primary-foreground" />
-                            </div>
-                          )}
-                        </button>
+                        </SelectionButton>
                       ))}
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
 
-              {/* Footer hint */}
+              {/* Footer */}
               <div className="px-4 pb-4">
-                <p className="text-xs text-muted-foreground text-center">
-                  Changes apply instantly. Refresh to reset.
-                </p>
+                <p className="text-xs text-muted-foreground text-center">Changes apply instantly. Refresh to reset.</p>
               </div>
             </motion.div>
           </>

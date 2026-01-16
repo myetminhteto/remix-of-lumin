@@ -10,31 +10,31 @@ const features = [
     iconClass: "feature-icon-indigo",
     title: "Add Employees Quickly",
     description: "Import, add, and invite users directly or sync through popular workspace integrations.",
-    highlights: ["Bulk CSV import", "Office 365 & Google sync", "Smart invitations"],
+    highlights: ["Can add new employees quickly with a simple, streamlined form"],
   },
   {
+    id: "automate-ids",
+    icon: UserPlus,
+    iconClass: "feature-icon-indigo",
+    title: "Add Organizations Quickly",
+    description: "Import, add, and invite users directly or sync through popular workspace integrations.",
+    highlights: ["Can add new organization quickly with a simple, streamlined form"],
+  },{
     id: "organize-entities",
     icon: Building2,
     iconClass: "feature-icon-blue",
     title: "Organize Business Entities",
     description: "Manage multiple entities, divisions, and organizational structures effortlessly.",
-    highlights: ["Multi-entity support", "Division management", "Org chart builder"],
+    highlights: [""],
   },
-  {
-    id: "automate-ids",
-    icon: Settings2,
-    iconClass: "feature-icon-teal",
-    title: "Automate ID Generation",
-    description: "Auto-generate employee IDs based on custom parameters like entity and location.",
-    highlights: ["Custom prefixes", "Location-based IDs", "Auto-sequencing"],
-  },
+  
   {
     id: "classify-workforce",
     icon: FolderTree,
     iconClass: "feature-icon-amber",
     title: "Classify Your Workforce",
-    description: "Divide your workforce into departments, designations, and locations with precision.",
-    highlights: ["Department hierarchy", "Role designations", "Location mapping"],
+    description: "Divide your workforce into departments and companies.",
+    highlights: [""],
   },
 ];
 
@@ -87,9 +87,7 @@ export function EmployeeInfo() {
               <div className="absolute -z-10 -bottom-6 sm:-bottom-8 -left-6 sm:-left-8 w-32 sm:w-48 h-32 sm:h-48 bg-primary/8 rounded-full blur-3xl" />
               <div className="absolute -z-10 -top-6 sm:-top-8 -right-6 sm:-right-8 w-24 sm:w-32 h-24 sm:h-32 bg-accent/10 rounded-full blur-2xl" />
             </motion.div>
-          </motion.div>
-
-          {/* Right: Content */}
+          </motion.div>{/* Right: Content */}
           <div className="order-1 lg:order-2">
             {/* Section header */}
             <motion.div
@@ -98,16 +96,16 @@ export function EmployeeInfo() {
               viewport={{ once: true }}
               className="mb-10 sm:mb-12 lg:mb-16"
             >
-              <span className="badge-primary">Employee Information</span>
+              <span className="badge-primary">Information</span>
               
               <h2 className="headline-xl mt-6 sm:mt-8">
                 Create & Customize
                 <br />
-                <span className="gradient-text">Your Organization</span>
+                <span className="gradient-text">Profile Information</span>
               </h2>
               
               <p className="body-lg mt-6 sm:mt-8 max-w-lg">
-                Build your organizational structure from the ground up with intuitive tools designed for scale.
+                Build your organizational structure account from the ground up with intuitive tools designed for scale.
               </p>
             </motion.div>
 
@@ -173,8 +171,7 @@ export function EmployeeInfo() {
                           className="overflow-hidden"
                         >
                           <p className="mt-2 sm:mt-3 text-muted-foreground leading-relaxed text-sm sm:text-base">
-                            {feature.description}
-                          </p>
+                            {feature.description}</p>
                           <ul className="mt-4 sm:mt-5 space-y-2 sm:space-y-3">
                             {feature.highlights.map((h, i) => (
                               <motion.li 

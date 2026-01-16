@@ -6,7 +6,7 @@ const testimonials = [
   {
     id: 1,
     quote: "LuminaHR transformed how we manage our global workforce. The intuitive interface and powerful automation saved us countless hours every week.",
-    author: "Sarah Chen",
+    author: "Sarah",
     role: "VP of People Operations",
     company: "TechFlow Inc.",
     avatar: "/placeholder.svg",
@@ -15,7 +15,7 @@ const testimonials = [
   {
     id: 2,
     quote: "The best HR platform we've ever used. Implementation was seamless, and our team adopted it within days. The support team is outstanding.",
-    author: "Michael Torres",
+    author: "Michael",
     role: "Chief Human Resources Officer",
     company: "Global Dynamics",
     avatar: "/placeholder.svg",
@@ -33,7 +33,7 @@ const testimonials = [
   {
     id: 4,
     quote: "The analytics and reporting features alone are worth it. We make better decisions with real-time workforce insights.",
-    author: "David Park",
+    author: "David",
     role: "Head of Talent",
     company: "Nexus Solutions",
     avatar: "/placeholder.svg",
@@ -159,7 +159,7 @@ export function Testimonials() {
               </AnimatePresence>
             </div>
 
-            {/* Navigation */}
+             {/* Navigation */}
             <div className="flex items-center justify-between mt-6 sm:mt-8">
               <button
                 onClick={goPrev}
@@ -235,3 +235,4 @@ export function Testimonials() {
     </section>
   );
 }
+

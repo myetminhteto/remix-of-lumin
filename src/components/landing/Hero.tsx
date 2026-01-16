@@ -66,7 +66,7 @@ export function Hero() {
               transition={{ duration: 0.5 }}
             >
               <span className="badge-primary">
-                Trusted by 10,000+ Companies Worldwide
+                Policies are followed by ASEAN Laour Laws
               </span>
             </motion.div>
 
@@ -79,7 +79,7 @@ export function Hero() {
             >
               The Modern Way to
               <br />
-              <span className="gradient-text">Manage People</span>
+              <span className="gradient-text">Manage People & Organizations</span>
             </motion.h1>
 
             {/* Subtext */}
@@ -92,7 +92,6 @@ export function Hero() {
               Streamline your entire HR workflow—from onboarding to performance—with 
               an intuitive platform your team will actually love using.
             </motion.p>
-
             {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -119,7 +118,7 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.5 }}
               className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-8 gap-y-3 text-sm text-muted-foreground"
             >
-              {["No credit card required", "14-day free trial", "Cancel anytime"].map((item, i) => (
+              {["Employers", "Organizations", "HR Admin"].map((item, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-primary" />
                   <span>{item}</span>

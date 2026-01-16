@@ -92,7 +92,7 @@ export function Contact() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
-          <motion.div
+          {/*<motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
@@ -120,7 +120,7 @@ export function Contact() {
             className="body-lg mt-6 max-w-2xl mx-auto"
           >
             Have questions about LuminaHR? Want to see a demo? Our team is here to help you transform your HR operations.
-          </motion.p>
+          </motion.p>*/}
 
           {/* Feature pills */}
           <motion.div

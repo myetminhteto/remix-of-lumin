@@ -10,59 +10,61 @@ const features = [
   {
     icon: Users,
     title: "Employee Management",
-    description: "Centralize all employee data with customizable profiles and org charts.",
+    description: "Handles employee records, roles, personal details, and employment status in one system. ",
     color: "feature-icon-indigo",
     gradient: "from-indigo-500/20 to-purple-500/20",
   },
   {
     icon: Calendar,
     title: "Leave & Attendance",
-    description: "Automate leave requests, approvals, and real-time attendance tracking.",
+    description: "Manages leave requests, approvals, attendance, and absence tracking.",
     color: "feature-icon-blue",
     gradient: "from-blue-500/20 to-cyan-500/20",
   },
   {
     icon: BarChart3,
     title: "Performance Reviews",
-    description: "Run 360° feedback cycles with goal tracking and analytics.",
+    description: "Evaluates employee performance based on goals, feedback, and appraisals.",
     color: "feature-icon-teal",
     gradient: "from-teal-500/20 to-emerald-500/20",
   },
   {
     icon: FileText,
     title: "Document Management",
-    description: "Secure storage for contracts, policies, and employee documents.",
+    description: "Stores, organizes, and secures HR-related documents digitally.",
     color: "feature-icon-emerald",
     gradient: "from-emerald-500/20 to-green-500/20",
   },
   {
     icon: Clock,
     title: "Time Tracking",
-    description: "Accurate timesheets with project-based tracking and reports.",
+    description: "Records working hours, overtime, and project time accurately.",
     color: "feature-icon-amber",
     gradient: "from-amber-500/20 to-orange-500/20",
   },
   {
     icon: Globe,
-    title: "Global Compliance",
-    description: "Stay compliant across 150+ countries with automated updates.",
+    title: "ASEAN Labour Policies",
+    description: "Used to apply the correct labor laws when an employee requests leave or is terminated, ensuring all actions follow legal requirements ",
     color: "feature-icon-rose",
     gradient: "from-rose-500/20 to-pink-500/20",
   },
   {
     icon: Shield,
-    title: "Enterprise Security",
-    description: "SOC 2 certified with SSO, 2FA, and role-based access.",
+    title: "Manage HR administration",
+    description: "The HR Admin manages and maintains all employee data through system.",
     color: "feature-icon-purple",
     gradient: "from-purple-500/20 to-violet-500/20",
   },
   {
     icon: Zap,
     title: "Workflow Automation",
-    description: "Build custom workflows for onboarding, approvals, and more.",
+    description: "Automates HR processes such as approvals, notifications, and task assignments.",
     color: "feature-icon-indigo",
     gradient: "from-indigo-500/20 to-blue-500/20",
   },
+
+  
 ];
 
 export function Features() {
@@ -222,7 +224,7 @@ export function Features() {
           >
             Everything You Need to
             <br />
-            <span className="gradient-text">Manage Your Team</span>
+            <span className="gradient-text">Manage Every Organizations</span>
           </motion.h2>
 
           <motion.p

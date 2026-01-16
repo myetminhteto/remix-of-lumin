@@ -1,50 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Mail, ArrowRight, Twitter, Linkedin, Github, Youtube } from "lucide-react";
+import { Mail, ArrowRight, Twitter, Linkedin, Github, Youtube, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const footerLinks = {
-  product: {
-    title: "Product",
-    links: [
-      { name: "Features", href: "#" },
-      { name: "Integrations", href: "#" },
-      { name: "Pricing", href: "#" },
-      { name: "Changelog", href: "#" },
-      { name: "Roadmap", href: "#" },
-    ],
-  },
-  solutions: {
-    title: "Solutions",
-    links: [
-      { name: "Enterprise", href: "#" },
-      { name: "Startups", href: "#" },
-      { name: "Remote Teams", href: "#" },
-      { name: "Healthcare", href: "#" },
-      { name: "Technology", href: "#" },
-    ],
-  },
-  resources: {
-    title: "Resources",
-    links: [
-      { name: "Documentation", href: "#" },
-      { name: "API Reference", href: "#" },
-      { name: "Blog", href: "#" },
-      { name: "Case Studies", href: "#" },
-      { name: "Webinars", href: "#" },
-    ],
-  },
-  company: {
-    title: "Company",
-    links: [
-      { name: "About", href: "#" },
-      { name: "Careers", href: "#" },
-      { name: "Press", href: "#" },
-      { name: "Partners", href: "#" },
-      { name: "Contact", href: "#" },
-    ],
-  },
-};
 
 const socialLinks = [
   { icon: Twitter, href: "#", label: "Twitter" },
@@ -73,8 +30,7 @@ export function Footer() {
                 <span className="gradient-text-light"> HR Insights</span>
               </h3>
               <p className="mt-3 sm:mt-4 text-white/50 text-base sm:text-lg">
-                Get the latest HR trends, product updates, and exclusive content delivered to your
-                inbox.
+                Get the latest HR trends, product updates, and exclusive content delivered to your inbox.
               </p>
             </div>
 
@@ -107,9 +63,9 @@ export function Footer() {
 
       {/* Main footer content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 lg:pb-20">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 sm:gap-10 lg:gap-12">
-          {/* Brand column */}
-          <div className="col-span-2 md:col-span-3 lg:col-span-2 mb-6 lg:mb-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
+          {/* Brand + Social links */}
+          <div className="mb-6 lg:mb-0">
             <a href="/" className="flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
               <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-white to-white/80 flex items-center justify-center shadow-lg">
                 <span className="text-[hsl(var(--dark-bg))] font-bold text-lg sm:text-xl font-display">L</span>
@@ -120,8 +76,7 @@ export function Footer() {
             </a>
 
             <p className="text-white/40 mb-6 sm:mb-8 max-w-xs leading-relaxed text-sm sm:text-base">
-              Empowering organizations worldwide with intelligent HR solutions that put people
-              first.
+              Empowering organizations worldwide with intelligent HR solutions that put people first.
             </p>
 
             {/* Social links */}
@@ -140,46 +95,62 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Link columns */}
-          {Object.entries(footerLinks).map(([key, section]) => (
-            <div key={key}>
-              <h4 className="font-display font-semibold text-white mb-4 sm:mb-5 text-xs sm:text-sm tracking-wide uppercase">
-                {section.title}
-              </h4>
-              <ul className="space-y-2.5 sm:space-y-3.5">
-                {section.links.map((link) => (
-                  <li key={link.name}>
-                    <a
-                      href={link.href}
-                      className="text-xs sm:text-sm text-white/40 hover:text-white transition-colors duration-300"
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* Contact column */}
+          <div>
+            <h4 className="font-display font-semibold text-white mb-4 sm:mb-5 text-sm tracking-wide uppercase">
+              Contact
+            </h4>
+            <ul className="space-y-3">
+              <li className="flex items-center gap-2 text-white/60">
+                <Phone className="w-4 h-4" />
+                <span>+95 9695922584</span>
+              </li>
+              <li className="flex items-center gap-2 text-white/60">
+                <Mail className="w-4 h-4" />
+                <span>hsumyathtet784@gmail.com</span>
+              </li>
+              <li className="flex items-center gap-2 text-white/60">
+                <MapPin className="w-4 h-4" />
+                <span>123 Parami Street, Hlaing , Yangon</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Optional: Newsletter quick links / CTA */}
+          <div>
+            <h4 className="font-display font-semibold text-white mb-4 sm:mb-5 text-sm tracking-wide uppercase">
+              Quick Links
+            </h4>
+            <ul className="space-y-2.5">
+              <li>
+                <a href="#" className="text-white/40 hover:text-white transition-colors duration-300">
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-white/40 hover:text-white transition-colors duration-300">
+                  Features
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-white/40 hover:text-white transition-colors duration-300">
+                  ASEAN Labour Resources
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-white/40 hover:text-white transition-colors duration-300">
+                  Team
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 sm:mt-16 pt-8 sm:pt-10 border-t border-white/10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-5">
-            <p className="text-xs sm:text-sm text-white/40">
-              © {new Date().getFullYear()} LuminaHR. All rights reserved.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 lg:gap-8">
-              {["Privacy Policy", "Terms of Service", "Cookie Settings"].map((item) => (
-                <a
-                  key={item}
-                  href="#"
-                  className="text-xs sm:text-sm text-white/40 hover:text-white transition-colors duration-300"
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
-          </div>
+        <div className="mt-12 sm:mt-16 pt-8 sm:pt-10 border-t border-white/10 text-center md:text-left">
+          <p className="text-xs sm:text-sm text-white/40">
+            © {new Date().getFullYear()} LuminaHR. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
