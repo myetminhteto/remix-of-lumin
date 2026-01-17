@@ -3,40 +3,29 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Lock, Building2, Loader2, LogIn } from "lucide-react";
+import { Mail, Lock, Loader2, LogIn } from "lucide-react";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { AuthInput } from "@/components/auth/AuthInput";
-import { RoleToggle } from "@/components/auth/RoleToggle";
-import { CountrySelect } from "@/components/auth/CountrySelect";
 import { Button } from "@/components/ui/button";
 import { loginSchema, type LoginFormData } from "@/lib/validations/auth";
 import { useAuth } from "@/contexts/AuthContext";
-import { USER_ROLES, type UserRole } from "@/lib/constants";
 
 export default function Login() {
   const { signIn } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
-  const [selectedRole, setSelectedRole] = useState<UserRole>(USER_ROLES.EMPLOYEE);
 
   const {
     register,
     handleSubmit,
-    setValue,
-    watch,
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
-      companyName: "",
-      country: "",
-      role: USER_ROLES.EMPLOYEE,
     },
   });
-
-  const selectedCountry = watch("country");
 
   const onSubmit = async (data: LoginFormData) => {
     setIsSubmitting(true);
@@ -50,32 +39,12 @@ export default function Login() {
     }
   };
 
-  const handleRoleChange = (role: UserRole) => {
-    setSelectedRole(role);
-    setValue("role", role);
-  };
-
   return (
     <AuthLayout
       title="Welcome back"
       subtitle="Sign in to your LuminaHR account"
     >
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        {/* Role Toggle */}
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-foreground/80">
-            I am signing in as
-          </label>
-          <RoleToggle
-            value={selectedRole}
-            onChange={handleRoleChange}
-            disabled={isSubmitting}
-          />
-          {errors.role && (
-            <p className="text-destructive text-sm">{errors.role.message}</p>
-          )}
-        </div>
-
         {/* Email */}
         <AuthInput
           label="Work email"
@@ -98,44 +67,15 @@ export default function Login() {
           {...register("password")}
         />
 
-        {/* Company Name */}
-        <AuthInput
-          label="Company name"
-          type="text"
-          icon={Building2}
-          placeholder="Your organization name"
-          error={errors.companyName?.message}
-          disabled={isSubmitting}
-          {...register("companyName")}
-        />
-
-        {/* Country Select */}
-        <div className="space-y-1.5">
-          <label className="block text-sm font-medium text-foreground/80">
-            Country
-          </label>
-          <CountrySelect
-            value={selectedCountry}
-            onChange={(value) => setValue("country", value)}
-            placeholder="Select ASEAN country"
-            disabled={isSubmitting}
-            error={!!errors.country}
-          />
-          {errors.country && (
-            <p className="text-destructive text-sm flex items-center gap-1.5">
-              {errors.country.message}
-            </p>
-          )}
-        </div>
-
         {/* Server Error */}
         <AnimatePresence>
           {serverError && (
             <motion.div
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              className="p-4 rounded-lg bg-destructive/10 border border-destructive/20"
+              initial={{ opacity: 0, y: -8, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: "auto" }}
+              exit={{ opacity: 0, y: -8, height: 0 }}
+              transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
+              className="p-4 rounded-xl bg-destructive/10 border border-destructive/20"
             >
               <p className="text-destructive text-sm font-medium">{serverError}</p>
             </motion.div>
@@ -143,32 +83,37 @@ export default function Login() {
         </AnimatePresence>
 
         {/* Submit Button */}
-        <Button
-          type="submit"
-          variant="hero"
-          size="lg"
-          className="w-full"
-          disabled={isSubmitting}
+        <motion.div
+          whileHover={{ scale: isSubmitting ? 1 : 1.01 }}
+          whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
         >
-          {isSubmitting ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              Signing in...
-            </>
-          ) : (
-            <>
-              <LogIn className="w-4 h-4" />
-              Sign in
-            </>
-          )}
-        </Button>
+          <Button
+            type="submit"
+            variant="hero"
+            size="lg"
+            className="w-full h-12 text-base font-semibold rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/25 transition-shadow duration-300"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                Signing in...
+              </>
+            ) : (
+              <>
+                <LogIn className="w-4 h-4" />
+                Sign in
+              </>
+            )}
+          </Button>
+        </motion.div>
 
         {/* Sign Up Link */}
-        <p className="text-center text-sm text-muted-foreground">
+        <p className="text-center text-sm text-muted-foreground pt-2">
           Don't have an account?{" "}
           <Link
             to="/signup"
-            className="text-primary font-medium hover:text-primary/80 transition-colors"
+            className="text-primary font-medium hover:text-primary/80 transition-colors duration-200"
           >
             Create one
           </Link>
