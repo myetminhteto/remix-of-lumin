@@ -10,8 +10,8 @@ const navigation = [
   
   { name: "About", href: "/pricing" },
   { name: "Features", href: "/#features" },
-  { name: "Testimonials", href: "/#features" },
-  { name: "FQA", href: "/#resources" },
+  { name: "Testimonials", href: "/#testimonials" },
+  { name: "FQA", href: "/#faq" },
   { name: "ASEAN Labour Resources", href: "features/asean-labour-policies" },
   { name: "Team", href: "features/team"},
   { name: "Contact", href: "/#contact" },
