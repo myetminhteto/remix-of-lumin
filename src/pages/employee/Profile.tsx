@@ -57,11 +57,12 @@ export default function EmployeeProfile() {
     }
 
     setIsSaving(true);
-    const { error } = await updateProfile(
-      editForm.fullName,
-      userProfile?.companyName || "",
-      userProfile?.country || ""
-    );
+    const { error } = await updateProfile({
+      fullName: editForm.fullName,
+      companyName: userProfile?.companyName || "",
+      country: userProfile?.country || "",
+    });
+
     setIsSaving(false);
 
     if (error) {
@@ -89,7 +90,11 @@ export default function EmployeeProfile() {
     }
 
     setIsChangingPassword(true);
-    const { error } = await updatePassword(passwordForm.newPassword);
+    const { error } = await updatePassword(
+      passwordForm.currentPassword,
+      passwordForm.newPassword
+    );
+
     setIsChangingPassword(false);
 
     if (error) {
